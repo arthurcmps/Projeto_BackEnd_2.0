@@ -1,0 +1,166 @@
+.menu {
+  width: 100%; /* Largura total */
+  background-color: #000000;
+  padding: 10px 0; /* Padding vertical para espaçamento interno */
+  overflow: hidden; /* Garante que o conteúdo não se sobreponha */
+}
+
+.menu ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: center; /* Centraliza os itens do menu */
+  margin: 0;
+}
+
+.menu ul li {
+  margin: 0;
+  padding: 15px 30px;
+}
+
+.menu ul li a {
+  display: block;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #ffffff; /* Cor do texto */
+  font-size: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  animation: rgb-colors-menu 3s infinite; /* Animação de mudança de cor */
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+.menu ul li a:hover {
+  background-color: rgb(34, 34, 34); /* Cor de fundo laranja no hover */
+  color: #ffffff;
+}
+
+.menu ul li::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 5px; /* Altura da linha */
+  top: 94px; /* Ajuste a posição da linha para um pouco abaixo do menu */
+  left: -100%; /* A linha começa fora do item */
+  background: linear-gradient(90deg, red, orange, yellow, green, blue, purple);
+  animation: moveLineMenu 3s linear infinite, changeColorMenu 6s linear infinite;
+}
+
+/* Animação de mudança de cor */
+@keyframes changeColorMenu {
+  0% {
+      background: linear-gradient(90deg, red, orange, yellow, green, blue, purple);
+  }
+  50% {
+      background: linear-gradient(90deg, purple, blue, green, yellow, orange, red);
+  }
+  100% {
+      background: linear-gradient(90deg, red, orange, yellow, green, blue, purple);
+  }
+}
+
+/* geral */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Helvetica, sans-serif;
+  color: #323232;
+  border: none;
+}
+
+input, label {
+  display: block;
+  outline: none;
+  width: 100%;
+}
+
+a {
+  color: #E60084;
+}
+
+body {
+  padding-top: 5vh;
+  background-image: url('../img/bg-register-page.jpg');
+  background-size: cover;
+  background-position-y: -150px;
+}
+
+/* form */
+#main-container {
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #FFF;
+  border-radius: 10px;
+  padding: 25px;
+}
+
+#main-container h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 1.6rem;
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.full-box {
+  flex: 1 1 100%;
+  position: relative;
+}
+
+.half-box {
+  flex: 1 1 45%;
+  position: relative;
+}
+
+.spacing {
+  margin-right: 2.5%;
+}
+
+label {
+  font-weight: bold;
+  font-size: .8rem;
+}
+
+input {
+  border-bottom: 2px solid #323232;
+  padding: 10px;
+  font-size: .9rem;
+  margin-bottom: 40px;
+}
+
+input:focus {
+  border-color: #E60084;
+}
+
+input[type="submit"] {
+  background-color: #E60084;
+  color: #FFF;
+  border: none;
+  border-radius: 20px;
+  height: 40px;
+  cursor: pointer;
+}
+
+#agreement {
+  margin-right: 5px;
+}
+
+#agreement, #agreement-label {
+  display: inline-block;
+  width: auto;
+}
+
+.error-validation {
+  color: #ff1a1a;
+  position: absolute;
+  top: 57px;
+  font-size: 12px;
+}
+
+.template {
+  display: none;
+}

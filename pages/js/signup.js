@@ -1,132 +1,33 @@
+// scripts.js
 
+document.getElementById("register-form").addEventListener("submit", function(event) {
+  // Impede o envio do formulário por padrão
+  event.preventDefault();
 
-/*Endereço*/
+  // Obtém os valores dos campos
+  const email = document.getElementById("email").value;
+  const nome = document.getElementById("name").value;
+  const sobrenome = document.getElementById("lastname").value;
+  const senha = document.getElementById("password").value;
+  const confirmacaoSenha = document.getElementById("passwordconfirmation").value;
+  const termosAceitos = document.getElementById("agreement").checked;
 
-const addressForm = document.querySelector("#address-form");
-const cepInput = document.querySelector("#cep");
-const addressInput = document.querySelector("#address");
-const cityInput = document.querySelector("#city");
-const neighborhoodInput = document.querySelector("#neighborhood");
-const regionInput = document.querySelector("#region");
-const formInputs = document.querySelectorAll("[data-input]");
-
-const closeButton = document.querySelector("#close-message");
-
-// Validate CEP Input
-cepInput.addEventListener("keypress", (e) => {
-  const onlyNumbers = /[0-9]/;
-  const key = String.fromCharCode(e.keyCode);
-
-  // allow only numbers
-  if (!onlyNumbers.test(key)) {
-    e.preventDefault();
-    return;
-  }
-});
-
-// Evento to get address
-cepInput.addEventListener("keyup", (e) => {
-  const inputValue = e.target.value;
-
-  //   Check if we have a CEP
-  if (inputValue.length === 8) {
-    getAddress(inputValue);
-  }
-});
-
-// Get address from API
-const getAddress = async (cep) => {
- 
-    toggleLoader();
-
-  cepInput.blur();
-
-  const apiUrl = `https://viacep.com.br/ws/${cep}/json/`;
-
-  const response = await fetch(apiUrl);
-
-  const data = await response.json();
-
-  console.log(data);
-  console.log(formInputs);
-  console.log(data.erro);
-
-  // Show error and reset form
-  if (data.erro === "true") {
-    if (!addressInput.hasAttribute("disabled")) {
-      toggleDisabled();
-    }
-
-    addressForm.reset();
-    toggleLoader();
-    toggleMessage("CEP Inválido, tente novamente.");
-    return;
+  // Valida os campos
+  if (!email || !nome || !sobrenome || !senha || !confirmacaoSenha) {
+      alert("Por favor, preencha todos os campos obrigatórios.");
+      return; // Para o envio do formulário
   }
 
-  // Activate disabled attribute if form is empty
-  if (addressInput.value === "") {
-    toggleDisabled();
+  if (senha !== confirmacaoSenha) {
+      alert("As senhas não coincidem.");
+      return; // Para o envio do formulário
   }
 
-  addressInput.value = data.logradouro;
-  cityInput.value = data.localidade;
-  neighborhoodInput.value = data.bairro;
-  regionInput.value = data.uf;
-
-  toggleLoader();
-};
-
-// Add or remove disable attribute
-const toggleDisabled = () => {
-  if (regionInput.hasAttribute("disabled")) {
-    formInputs.forEach((input) => {
-      input.removeAttribute("disabled");
-    });
-  } else {
-    formInputs.forEach((input) => {
-      input.setAttribute("disabled", "disabled");
-    });
+  if (!termosAceitos) {
+      alert("Você deve aceitar os termos de uso.");
+      return; // Para o envio do formulário
   }
-};
 
-// Show or hide loader
-const toggleLoader = () => {
-  const fadeElement = document.querySelector("#fade");
-  const loaderElement = document.querySelector("#loader");
-
-  fadeElement.classList.toggle("hide");
-  loaderElement.classList.toggle("hide");
-};
-
-// Show or hide message
-const toggleMessage = (msg) => {
-  const fadeElement = document.querySelector("#fade");
-  const messageElement = document.querySelector("#message");
-
-  const messageTextElement = document.querySelector("#message p");
-
-  messageTextElement.innerText = msg;
-
-  fadeElement.classList.toggle("hide");
-  messageElement.classList.toggle("hide");
-};
-
-// Close message modal
-closeButton.addEventListener("click", () => toggleMessage());
-
-// Save address
-addressForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  toggleLoader();
-
-  setTimeout(() => {
-    toggleLoader();
-
-    toggleMessage("Cadastro salvo com sucesso!");
-
-    addressForm.reset();
-
-    toggleDisabled();
-  }, 1000);
+  // Se tudo estiver válido, envia o formulário
+  this.submit(); // Envia o formulário
 });
